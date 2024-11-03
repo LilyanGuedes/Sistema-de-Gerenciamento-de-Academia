@@ -8,8 +8,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "academy")
-public class Academy implements Serializable {
+@Table(name = "gym")
+public class Gym implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -19,33 +19,33 @@ public class Academy implements Serializable {
     private Long id;
 
     // Lista de alunos
-    @OneToMany(mappedBy = "academy", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "gym", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Student> students = new HashSet<>();
 
     // Lista de aulas
-    @OneToMany(mappedBy = "academy", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "gym", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Class> classes = new HashSet<>();
 
     // Lista de registros de frequência
-    @OneToMany(mappedBy = "academy", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "gym", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<AttendanceRecord> attendanceRecords = new HashSet<>();
 
     // Relação um-para-muitos com instrutores
-    @OneToMany(mappedBy = "academy", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "gym", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Instructor> instructors = new HashSet<>();
 
-    public Academy() {}
+    public Gym() {}
 
     // Adicionar aluno
     public void addStudent(Student student) {
         students.add(student);
-        student.setAcademy(this); // Definindo a academia no aluno
+        student.setGym(this); // Definindo a academia no aluno
     }
 
     // Adicionar aula
     public void addClass(Class gymClass) {
         classes.add(gymClass);
-        gymClass.setAcademy(this); // Definindo a academia na aula
+        gymClass.setGym(this); // Definindo a academia na aula
     }
 
     // Inscrever aluno em aula
@@ -54,8 +54,8 @@ public class Academy implements Serializable {
     }
 
     // Registrar frequência
-    public void registerAttendance(Class gymClass, Student student, LocalDate attendanceDate, Academy academy) {
-        AttendanceRecord record = new AttendanceRecord(gymClass, student, attendanceDate, academy);
+    public void registerAttendance(Class gymClass, Student student, LocalDate attendanceDate, Gym gym) {
+        AttendanceRecord record = new AttendanceRecord(gymClass, student, attendanceDate, gym);
         attendanceRecords.add(record);
     }
 
@@ -67,7 +67,7 @@ public class Academy implements Serializable {
     // Adicionar instrutor
     public void addInstructor(Instructor instructor) {
         instructors.add(instructor);
-        instructor.setAcademy(this); // Definindo a academia no instrutor
+        instructor.setGym(this); // Definindo a academia no instrutor
     }
 
     // Getters e Setters
@@ -113,7 +113,7 @@ public class Academy implements Serializable {
 
     @Override
     public String toString() {
-        return "Academy{" +
+        return "Gym{" +
                 "id=" + id +
                 ", students=" + students +
                 ", classes=" + classes +

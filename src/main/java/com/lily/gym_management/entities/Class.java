@@ -24,8 +24,8 @@ public class Class implements Serializable {
     private Instructor instructor;
 
     @ManyToOne
-    @JoinColumn(name = "academy_id", nullable = false)
-    private Academy academy;
+    @JoinColumn(name = "gym_id", nullable = false)
+    private Gym gym;
 
     @ManyToMany
     @JoinTable(
@@ -38,11 +38,11 @@ public class Class implements Serializable {
 
     public Class() {}
 
-    public Class(String name, Instructor instructor, int maxCapacity, Academy academy) {
+    public Class(String name, Instructor instructor, int maxCapacity, Gym gym) {
         this.name = name;
         this.instructor = instructor;
         this.maxCapacity = maxCapacity;
-        this.academy = academy;
+        this.gym = gym;
     }
 
     // Getters and Setters
@@ -78,12 +78,12 @@ public class Class implements Serializable {
         this.instructor = instructor;
     }
 
-    public Academy getAcademy() {
-        return academy; // Getter para a academia
+    public Gym getGym() {
+        return gym; // Getter para a academia
     }
 
-    public void setAcademy(Academy academy) {
-        this.academy = academy; // Setter para a academia
+    public void setGym(Gym gym) {
+        this.gym = gym; // Setter para a academia
     }
 
     public Set<Student> getStudents() {

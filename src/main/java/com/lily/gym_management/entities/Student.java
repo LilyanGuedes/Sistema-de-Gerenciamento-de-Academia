@@ -1,9 +1,6 @@
 package com.lily.gym_management.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -17,18 +14,19 @@ public class Student extends Member implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
+
     private Boolean paymentOnTime;
 
     @ManyToOne
-    @JoinColumn(name = "academy_id", nullable = false)
-    private Academy academy;
+    @JoinColumn(name = "gym_id", nullable = false)
+    private Gym gym;
 
     public Student() {}
 
-    public Student(UUID id, String name, LocalDate dateOfBirth, Boolean paymentOnTime, Academy academy) {
+    public Student(UUID id, String name, LocalDate dateOfBirth, Boolean paymentOnTime, Gym gym) {
         super(id, name, dateOfBirth);
         this.paymentOnTime = paymentOnTime;
-        this.academy = academy;
+        this.gym = gym;
     }
 
     public Boolean getPaymentOnTime() {
@@ -43,12 +41,12 @@ public class Student extends Member implements Serializable {
         return paymentOnTime ? "Payment on time" : "Payment pending";
     }
 
-    public Academy getAcademy() {
-        return academy; // Getter para a academia
+    public Gym getGym() {
+        return gym; // Getter para a academia
     }
 
-    public void setAcademy(Academy academy) {
-        this.academy = academy; // Setter para a academia
+    public void setGym(Gym gym) {
+        this.gym = gym; // Setter para a academia
     }
 
     @Override

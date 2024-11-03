@@ -18,14 +18,14 @@ public class Instructor extends Member implements Serializable {
     private String specialization;
 
     @ManyToOne
-    @JoinColumn(name = "academy_id", nullable = false)
-    private Academy academy;
+    @JoinColumn(name = "gym_id", nullable = false)
+    private Gym gym;
     public Instructor() {}
 
-    public Instructor(UUID id, String name, LocalDate dateOfBirth, String specialization, Academy academy) {
+    public Instructor(UUID id, String name, LocalDate dateOfBirth, String specialization, Gym gym) {
         super(id, name, dateOfBirth);
         this.specialization = specialization;
-        this.academy = academy;
+        this.gym = gym;
     }
 
     public String getSpecialization() {
@@ -37,12 +37,12 @@ public class Instructor extends Member implements Serializable {
     }
 
 
-    public Academy getAcademy() {
-        return academy; // Getter para a academia
+    public Gym getGym() {
+        return gym; // Getter para a academia
     }
 
-    public void setAcademy(Academy academy) {
-        this.academy = academy; // Setter para a academia
+    public void setGym(Gym gym) {
+        this.gym = gym; // Setter para a academia
     }
 
 
