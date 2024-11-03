@@ -49,13 +49,5 @@ public class Student extends Member implements Serializable {
         this.gym = gym; // Setter para a academia
     }
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + getId() +
-                ", name='" + getName() + '\'' +
-                ", dateOfBirth=" + getDateOfBirth() +
-                ", paymentOnTime=" + paymentOnTime +
-                '}';
-    }
+
 }

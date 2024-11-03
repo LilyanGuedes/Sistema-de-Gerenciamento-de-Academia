@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
-
+import java.util.UUID;
 @Entity
 @Table(name = "gym")
 public class Gym implements Serializable {
@@ -15,8 +15,8 @@ public class Gym implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Column(name = "gym_id")
+    private UUID id;
 
     // Lista de alunos
     @OneToMany(mappedBy = "gym", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -71,11 +71,11 @@ public class Gym implements Serializable {
     }
 
     // Getters e Setters
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -111,14 +111,4 @@ public class Gym implements Serializable {
         this.instructors = instructors;
     }
 
-    @Override
-    public String toString() {
-        return "Gym{" +
-                "id=" + id +
-                ", students=" + students +
-                ", classes=" + classes +
-                ", attendanceRecords=" + attendanceRecords +
-                ", instructors=" + instructors +
-                '}';
-    }
 }

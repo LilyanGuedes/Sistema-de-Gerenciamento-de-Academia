@@ -14,7 +14,7 @@ public class AttendanceRecord implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column
     private UUID id;
 
     @ManyToOne
@@ -75,13 +75,4 @@ public class AttendanceRecord implements Serializable {
         this.attendanceDate = attendanceDate;
     }
 
-    @Override
-    public String toString() {
-        return "AttendanceRecord{" +
-                "id=" + id +
-                ", gymClass=" + gymClass.getName() +
-                ", student=" + student.getName() +
-                ", attendanceDate=" + attendanceDate +
-                '}';
-    }
 }

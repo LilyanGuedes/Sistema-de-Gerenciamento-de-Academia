@@ -17,8 +17,7 @@ public abstract class Member implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
-    @Column(columnDefinition = "uuid", updatable = false, nullable = false)
+    @Column
     private UUID id;
 
     @Column(nullable = false, length = 100)
@@ -60,13 +59,5 @@ public abstract class Member implements Serializable {
         this.dateOfBirth = dateOfBirth;
     }
 
-    @Override
-    public String toString() {
-        return "Member{" +
-                "id=" + id +
-                ", nome='" + name + '\'' +
-                ", dataNascimento=" + dateOfBirth +
-                '}';
-    }
 }
 
