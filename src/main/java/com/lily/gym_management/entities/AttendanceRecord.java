@@ -29,12 +29,18 @@ public class AttendanceRecord implements Serializable {
     @Column(name = "attendance_date", nullable = false)
     private LocalDate attendanceDate;
 
+    @ManyToOne
+    @JoinColumn(name = "academy_id")
+    private Academy academy;
+
+
     public AttendanceRecord() {}
 
-    public AttendanceRecord(Class gymClass, Student student, LocalDate attendanceDate) {
+    public AttendanceRecord(Class gymClass, Student student, LocalDate attendanceDate, Academy academy) {
         this.gymClass = gymClass;
         this.student = student;
         this.attendanceDate = attendanceDate;
+        this.academy = academy;
     }
 
     public UUID getId() {

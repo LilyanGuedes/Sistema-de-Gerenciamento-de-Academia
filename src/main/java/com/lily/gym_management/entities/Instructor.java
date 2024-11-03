@@ -1,8 +1,6 @@
 package com.lily.gym_management.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -19,11 +17,15 @@ public class Instructor extends Member implements Serializable {
     @Column(nullable = false)
     private String specialization;
 
+    @ManyToOne
+    @JoinColumn(name = "academy_id", nullable = false)
+    private Academy academy;
     public Instructor() {}
 
-    public Instructor(UUID id, String name, LocalDate dateOfBirth, String specialization) {
+    public Instructor(UUID id, String name, LocalDate dateOfBirth, String specialization, Academy academy) {
         super(id, name, dateOfBirth);
         this.specialization = specialization;
+        this.academy = academy;
     }
 
     public String getSpecialization() {
@@ -34,6 +36,14 @@ public class Instructor extends Member implements Serializable {
         this.specialization = specialization;
     }
 
+
+    public Academy getAcademy() {
+        return academy; // Getter para a academia
+    }
+
+    public void setAcademy(Academy academy) {
+        this.academy = academy; // Setter para a academia
+    }
 
 
 }
