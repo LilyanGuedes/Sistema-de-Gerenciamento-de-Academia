@@ -18,9 +18,6 @@ public class RegisterGymUseCase {
     }
 
     public Gym execute(Gym gym) {
-        if (gym.getId() == null) {
-            gym.setId(UUID.randomUUID());
-        }
         return repository.save(gym);
     }
 }

@@ -12,18 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface AttendanceRecordRepository extends JpaRepository<AttendanceRecord, UUID> {
+    List<AttendanceRecord> findByGymClass(Class gymClass);
 
-    //buscar frequência de um aluno por aula
-    @Query("SELECT a FROM AttendanceRecord a WHERE a.gymClass = :gymClass AND a.student = :student")
-    List<AttendanceRecord> findAttendanceByClassAndStudent(
-            @Param("gymClass") Class gymClass,
-            @Param("student") Student student
-    );
-
-    // buscar todos os registros de frequência em uma aula específica em uma data específica
-    @Query("SELECT a FROM AttendanceRecord a WHERE a.gymClass = :gymClass AND a.attendanceDate = :attendanceDate")
-    List<AttendanceRecord> findAttendanceByClassAndDate(
-            @Param("gymClass") Class gymClass,
-            @Param("attendanceDate") LocalDate attendanceDate
-    );
+    List<AttendanceRecord> findByStudent(Student student);
 }

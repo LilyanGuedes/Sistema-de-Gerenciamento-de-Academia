@@ -37,8 +37,9 @@ public class Student extends Member implements Serializable {
         this.paymentOnTime = paymentOnTime;
     }
 
-    public String checkPaymentStatus() {
-        return paymentOnTime ? "Payment on time" : "Payment pending";
+    // Método para verificar se o pagamento está em dia
+    public boolean isPaymentUpToDate() {
+        return Boolean.TRUE.equals(paymentOnTime);
     }
 
     public Gym getGym() {

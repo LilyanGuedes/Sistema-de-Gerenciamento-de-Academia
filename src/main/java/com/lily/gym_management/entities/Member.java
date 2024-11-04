@@ -17,6 +17,7 @@ public abstract class Member implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue
     @Column
     private UUID id;
 
