@@ -31,48 +31,32 @@ public class AttendanceUseCase {
         this.studentRepository = studentRepository;
     }
 
-    // Método para registrar a frequência
     public AttendanceRecord registerAttendance(UUID classId, UUID studentId, LocalDate attendanceDate) {
         Optional<Class> gymClass = classRepository.findById(classId);
         Optional<Student> student = studentRepository.findById(studentId);
 
-        if (gymClass.isEmpty()) {
-            throw new RuntimeException("Aula não encontrada");
+        if (gymClass.isEmpty() || student.isEmpty()) {
+            throw new RuntimeException("Aula ou aluno não encontrado");
         }
 
-        if (student.isEmpty()) {
-            throw new RuntimeException("Aluno não encontrado");
+        Optional<AttendanceRecord> existingRecord = attendanceRecordRepository.findExistingAttendance(gymClass.get(), student.get(), attendanceDate);
+        if (existingRecord.isPresent()) {
+            throw new RuntimeException("Frequência já registrada para o aluno nesta aula e data.");
         }
 
-        AttendanceRecord attendanceRecord = new AttendanceRecord(
-                gymClass.get(),
-                student.get(),
-                attendanceDate,
-                gymClass.get().getGym()
-        );
-
+        AttendanceRecord attendanceRecord = new AttendanceRecord(gymClass.get(), student.get(), attendanceDate, gymClass.get().getGym());
         return attendanceRecordRepository.save(attendanceRecord);
     }
 
-    // Método para listar as frequências de uma aula específica
     public List<AttendanceRecord> getAttendanceRecordsByClass(UUID classId) {
-        Optional<Class> gymClass = classRepository.findById(classId);
-
-        if (gymClass.isEmpty()) {
-            throw new RuntimeException("Aula não encontrada");
-        }
-
-        return attendanceRecordRepository.findByGymClass(gymClass.get());
+        return classRepository.findById(classId)
+                .map(attendanceRecordRepository::findByGymClass)
+                .orElseThrow(() -> new RuntimeException("Aula não encontrada"));
     }
 
-    // Método para listar as frequências de um aluno específico
     public List<AttendanceRecord> getAttendanceRecordsByStudent(UUID studentId) {
-        Optional<Student> student = studentRepository.findById(studentId);
-
-        if (student.isEmpty()) {
-            throw new RuntimeException("Aluno não encontrado");
-        }
-
-        return attendanceRecordRepository.findByStudent(student.get());
+        return studentRepository.findById(studentId)
+                .map(attendanceRecordRepository::findByStudent)
+                .orElseThrow(() -> new RuntimeException("Aluno não encontrado"));
     }
 }
